@@ -2,96 +2,262 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Kumar Website</title>
+    <title>Devdat Kumar – Welcome to Devdat Website</title>
     <style>
+        /* ---------- Reset & Body ---------- */
         body {
             margin: 0;
             padding: 0;
-            background: black;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             color: gold;
+            background: black;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
+        /* ---------- Background Animation ---------- */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(
+                120deg, 
+                rgba(255, 215, 0, 0.05) 0%, 
+                rgba(255, 215, 0, 0.3) 50%, 
+                rgba(255, 215, 0, 0.05) 100%
+            );
+            transform: skewX(-25deg);
+            animation: shine 5s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes shine {
+            0% { left: -50%; }
+            100% { left: 100%; }
+        }
+
+        /* ---------- Header ---------- */
         header {
+            position: relative;
+            z-index: 1;
             text-align: center;
-            padding: 50px;
-            background: linear-gradient(90deg, black, #1a1a1a);
+            padding: 60px 20px;
             border-bottom: 2px solid gold;
         }
 
         header h1 {
-            font-size: 50px;
+            font-size: 60px;
             margin: 0;
-            letter-spacing: 3px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
         }
 
+        header p {
+            font-size: 20px;
+            color: #ffd700aa;
+            margin-top: 10px;
+        }
+
+        /* ---------- Navigation ---------- */
         nav {
             text-align: center;
-            padding: 15px;
+            padding: 20px;
             border-bottom: 1px solid gold;
+            position: relative;
+            z-index: 1;
         }
 
         nav a {
             color: gold;
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 20px;
             font-size: 18px;
+            transition: 0.3s;
         }
 
         nav a:hover {
             color: white;
         }
 
+        /* ---------- Animated Buttons ---------- */
+        .btn {
+            display: inline-block;
+            background: gold;
+            color: black;
+            padding: 12px 25px;
+            margin: 10px 5px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn:hover {
+            background: black;
+            color: gold;
+            box-shadow: 0 0 20px gold;
+            transform: scale(1.1);
+        }
+
+        /* ---------- Sections ---------- */
         section {
-            padding: 50px;
+            padding: 60px 20px;
             text-align: center;
+            z-index: 1;
+            position: relative;
         }
 
         .card {
             background: #111;
             border: 1px solid gold;
-            padding: 20px;
+            padding: 30px;
             margin: 20px auto;
             width: 60%;
-            border-radius: 10px;
-            box-shadow: 0 0 10px gold;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+        }
+
+        /* ---------- Portfolio Gallery ---------- */
+        .portfolio {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .portfolio img {
+            width: 250px;
+            height: 150px;
+            object-fit: cover;
+            border: 2px solid gold;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .portfolio img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px gold;
+        }
+
+        /* ---------- Contact Form ---------- */
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        input, textarea {
+            width: 60%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid gold;
+            border-radius: 8px;
+            background: #111;
+            color: gold;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: white;
+        }
+
+        input[type="submit"] {
+            width: auto;
+            cursor: pointer;
+        }
+
+        /* ---------- Footer ---------- */
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 30px;
             border-top: 1px solid gold;
-            margin-top: 50px;
+            z-index: 1;
+            position: relative;
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 40px;
+            }
+            .card {
+                width: 90%;
+                padding: 20px;
+            }
+            input, textarea {
+                width: 90%;
+            }
+            .portfolio img {
+                width: 90%;
+                height: auto;
+            }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>KUMAR</h1>
-    <p>Welcome to my website</p>
+    <h1>Devdat Kumar</h1>
+    <p>Welcome to Devdat Website</p>
 </header>
 
 <nav>
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Contact</a>
+    <a href="#about">About</a>
+    <a href="#work">Work</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#contact">Contact</a>
 </nav>
 
-<section>
+<section id="about">
     <div class="card">
         <h2>About Me</h2>
-        <p>Hello! My name is Kumar. This is my black and gold themed website.</p>
-    </div>
-
-    <div class="card">
-        <h2>My Work</h2>
-        <p>I create simple and stylish web designs.</p>
+        <p>Hello! I'm Devdat Kumar, a web designer creating professional websites with animations and modern layouts.</p>
+        <a href="#contact" class="btn">Hire Me</a>
     </div>
 </section>
 
+<section id="work">
+    <div class="card">
+        <h2>My Work</h2>
+        <p>I specialize in clean, elegant, and professional websites with interactive features and animations.</p>
+        <a href="#portfolio" class="btn">View Portfolio</a>
+    </div>
+</section>
+
+<section id="portfolio">
+    <h2>Portfolio</h2>
+    <div class="portfolio">
+        <img src="https://picsum.photos/250/150?random=1" alt="Project 1">
+        <img src="https://picsum.photos/250/150?random=2" alt="Project 2">
+        <img src="https://picsum.photos/250/150?random=3" alt="Project 3">
+        <img src="https://picsum.photos/250/150?random=4" alt="Project 4">
+    </div>
+</section>
+
+<section id="contact">
+    <h2>Contact Me</h2>
+    <form action="mailto:devdatkumarraj397@gmail.com" method="post" enctype="text/plain">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <input type="submit" value="Send Message" class="btn">
+    </form>
+</section>
+
 <footer>
-    <p>© 2026 Kumar | All Rights Reserved</p>
+    <p>© 2026 Devdat Kumar | All Rights Reserved</p>
 </footer>
 
 </body>
