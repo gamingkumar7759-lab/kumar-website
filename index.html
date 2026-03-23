@@ -5,54 +5,54 @@
     <title>Devdat Kumar – Welcome to Devdat Website</title>
     <style>
         /* ---------- Reset & Body ---------- */
-        body {
+        body, html {
             margin: 0;
             padding: 0;
             font-family: 'Arial', sans-serif;
-            color: gold;
-            background: black;
             scroll-behavior: smooth;
-            overflow-x: hidden;
         }
 
-        /* ---------- Background Animation ---------- */
-        body::before {
-            content: "";
+        /* ---------- Professional Background ---------- */
+        body {
+            background: radial-gradient(circle at top left, #000000, #111111);
+            color: gold;
+        }
+
+        /* Subtle moving gold particles effect */
+        .background {
             position: fixed;
-            top: 0;
-            left: -50%;
-            width: 200%;
+            width: 100%;
             height: 100%;
-            background: linear-gradient(
-                120deg, 
-                rgba(255, 215, 0, 0.05) 0%, 
-                rgba(255, 215, 0, 0.3) 50%, 
-                rgba(255, 215, 0, 0.05) 100%
-            );
-            transform: skewX(-25deg);
-            animation: shine 5s linear infinite;
-            z-index: 0;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            overflow: hidden;
         }
 
-        @keyframes shine {
-            0% { left: -50%; }
-            100% { left: 100%; }
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, gold 0%, rgba(255,215,0,0) 70%);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float 10s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0.5); }
+            100% { transform: translateY(-10vh) scale(1); }
         }
 
         /* ---------- Header ---------- */
         header {
-            position: relative;
-            z-index: 1;
             text-align: center;
             padding: 60px 20px;
-            border-bottom: 2px solid gold;
+            position: relative;
         }
 
         header h1 {
             font-size: 60px;
             margin: 0;
             letter-spacing: 5px;
-            text-transform: uppercase;
         }
 
         header p {
@@ -65,9 +65,6 @@
         nav {
             text-align: center;
             padding: 20px;
-            border-bottom: 1px solid gold;
-            position: relative;
-            z-index: 1;
         }
 
         nav a {
@@ -82,7 +79,7 @@
             color: white;
         }
 
-        /* ---------- Animated Buttons ---------- */
+        /* ---------- Buttons ---------- */
         .btn {
             display: inline-block;
             background: gold;
@@ -107,8 +104,6 @@
         section {
             padding: 60px 20px;
             text-align: center;
-            z-index: 1;
-            position: relative;
         }
 
         .card {
@@ -183,31 +178,75 @@
             text-align: center;
             padding: 30px;
             border-top: 1px solid gold;
-            z-index: 1;
-            position: relative;
+        }
+
+        /* ---------- Login Page ---------- */
+        #loginPage {
+            display: none;
+            position: fixed;
+            top:0; left:0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            color: gold;
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #loginPage input {
+            width: 250px;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid gold;
+            background: #111;
+            color: gold;
+        }
+
+        #loginPage button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 1px solid gold;
+            background: gold;
+            color: black;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        #loginPage button:hover {
+            background: black;
+            color: gold;
+            box-shadow: 0 0 15px gold;
         }
 
         /* ---------- Responsive ---------- */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 40px;
-            }
-            .card {
-                width: 90%;
-                padding: 20px;
-            }
-            input, textarea {
-                width: 90%;
-            }
-            .portfolio img {
-                width: 90%;
-                height: auto;
-            }
+            header h1 { font-size: 40px; }
+            .card { width: 90%; padding: 20px; }
+            input, textarea { width: 90%; }
+            .portfolio img { width: 90%; height: auto; }
+            #loginPage input { width: 80%; }
         }
     </style>
 </head>
 <body>
 
+<!-- Professional Particles Background -->
+<div class="background" id="backgroundParticles"></div>
+
+<!-- Login Page -->
+<div id="loginPage">
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="checkLogin()">Login</button>
+    <p id="loginMsg" style="color:red;"></p>
+</div>
+
+<!-- Main Website Content -->
+<div id="mainContent" style="display:none;">
 <header>
     <h1>Devdat Kumar</h1>
     <p>Welcome to Devdat Website</p>
@@ -254,11 +293,51 @@
         <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
         <input type="submit" value="Send Message" class="btn">
     </form>
+    <p>Instagram: <a href="https://www.instagram.com/devday_740" target="_blank" style="color: gold;">@devday_740</a></p>
 </section>
 
 <footer>
     <p>© 2026 Devdat Kumar | All Rights Reserved</p>
 </footer>
+</div>
+
+<script>
+    // ---------- Particles ----------
+    const bg = document.getElementById('backgroundParticles');
+    for(let i=0; i<50; i++){
+        let p = document.createElement('div');
+        p.className = 'particle';
+        p.style.width = `${Math.random()*6+4}px`;
+        p.style.height = p.style.width;
+        p.style.left = `${Math.random()*100}vw`;
+        p.style.animationDuration = `${Math.random()*15+5}s`;
+        p.style.opacity = Math.random()*0.5+0.3;
+        bg.appendChild(p);
+    }
+
+    // ---------- Login Page ----------
+    const loginPage = document.getElementById('loginPage');
+    const mainContent = document.getElementById('mainContent');
+
+    function checkLogin(){
+        const user = document.getElementById('username').value;
+        const pass = document.getElementById('password').value;
+        const msg = document.getElementById('loginMsg');
+
+        if(user.toLowerCase() === "dev kumar" && pass.toLowerCase() === "dev kumar"){
+            loginPage.style.display = "none";
+            mainContent.style.display = "block";
+        } else {
+            msg.textContent = "Incorrect username or password!";
+        }
+    }
+
+    // Show login page on load
+    window.onload = () => {
+        loginPage.style.display = "flex";
+        mainContent.style.display = "none";
+    };
+</script>
 
 </body>
 </html>
