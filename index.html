@@ -221,6 +221,34 @@
             box-shadow: 0 0 15px gold;
         }
 
+        /* ---------- Tap Me Section ---------- */
+        .tapTextContainer {
+            position: relative;
+            height: 150px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        .floatingEmoji {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.6;
+            animation: floatEmoji linear infinite;
+        }
+        @keyframes floatEmoji {
+            0% { transform: translate(0, 100%); }
+            100% { transform: translate(100vw, -100%); }
+        }
+        .tapText {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 28px;
+            font-weight: bold;
+            color: gold;
+            z-index: 10;
+        }
+
         /* ---------- Responsive ---------- */
         @media (max-width: 768px) {
             header h1 { font-size: 40px; }
@@ -233,7 +261,7 @@
 </head>
 <body>
 
-<!-- Professional Particles Background -->
+<!-- Background Particles -->
 <div class="background" id="backgroundParticles"></div>
 
 <!-- Login Page -->
@@ -245,7 +273,7 @@
     <p id="loginMsg" style="color:red;"></p>
 </div>
 
-<!-- Main Website Content -->
+<!-- Main Content -->
 <div id="mainContent" style="display:none;">
 <header>
     <h1>Devdat Kumar</h1>
@@ -256,6 +284,7 @@
     <a href="#about">About</a>
     <a href="#work">Work</a>
     <a href="#portfolio">Portfolio</a>
+    <a href="#tapMe">Tap Me</a>
     <a href="#contact">Contact</a>
 </nav>
 
@@ -282,6 +311,16 @@
         <img src="https://picsum.photos/250/150?random=2" alt="Project 2">
         <img src="https://picsum.photos/250/150?random=3" alt="Project 3">
         <img src="https://picsum.photos/250/150?random=4" alt="Project 4">
+    </div>
+</section>
+
+<!-- Tap Me Section -->
+<section id="tapMe">
+    <div class="card">
+        <h2>Tap Me</h2>
+        <p>Tap the button to see the magic!</p>
+        <button class="btn" onclick="showTapText()">Tap Me</button>
+        <div id="tapTextContainer" class="tapTextContainer"></div>
     </div>
 </section>
 
@@ -315,7 +354,7 @@
         bg.appendChild(p);
     }
 
-    // ---------- Login Page ----------
+    // ---------- Login ----------
     const loginPage = document.getElementById('loginPage');
     const mainContent = document.getElementById('mainContent');
 
@@ -332,11 +371,35 @@
         }
     }
 
-    // Show login page on load
     window.onload = () => {
         loginPage.style.display = "flex";
         mainContent.style.display = "none";
     };
+
+    // ---------- Tap Me Button ----------
+    function showTapText(){
+        const container = document.getElementById('tapTextContainer');
+        container.innerHTML = ''; // reset previous
+
+        // Text
+        const text = document.createElement('div');
+        text.className = 'tapText';
+        text.textContent = 'tis tis tedav';
+        container.appendChild(text);
+
+        // Floating emojis
+        const emojis = ['✨','💫','🌟','⭐','🔥','🌈'];
+        for(let i=0; i<20; i++){
+            const emoji = document.createElement('div');
+            emoji.className = 'floatingEmoji';
+            emoji.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+            emoji.style.left = Math.random()*100 + 'vw';
+            emoji.style.top = Math.random()*100 + 'px';
+            emoji.style.fontSize = (Math.random()*20+20)+'px';
+            emoji.style.animationDuration = (Math.random()*8+5)+'s';
+            container.appendChild(emoji);
+        }
+    }
 </script>
 
 </body>
